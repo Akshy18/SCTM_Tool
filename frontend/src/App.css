@@ -221,6 +221,77 @@ body {
   display: none;
 }
 
+/* ── Sample Profile Buttons ───────────────────────────── */
+
+.sample-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.5rem 0 1rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+.sample-divider::before,
+.sample-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.sample-btns {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.sample-btn {
+  padding: 0.5rem 1.1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: var(--font);
+  border-radius: var(--radius-sm);
+  border: 1px solid;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.sample-btn:hover {
+  transform: translateY(-2px);
+}
+
+.sample-low {
+  color: var(--low);
+  background: var(--low-bg);
+  border-color: var(--low-border);
+}
+
+.sample-low:hover {
+  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.2);
+}
+
+.sample-medium {
+  color: var(--medium);
+  background: var(--medium-bg);
+  border-color: var(--medium-border);
+}
+
+.sample-medium:hover {
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.2);
+}
+
+.sample-high {
+  color: var(--high);
+  background: var(--high-bg);
+  border-color: var(--high-border);
+}
+
+.sample-high:hover {
+  box-shadow: 0 4px 16px rgba(244, 63, 94, 0.2);
+}
+
 .error-msg {
   color: var(--high);
   font-size: 0.85rem;

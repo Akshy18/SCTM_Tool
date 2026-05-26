@@ -1,0 +1,49 @@
+{
+  "projectName": "Vault Core (Low Risk)",
+  "nodeVersion": "20.11.0",
+  "license": "MIT",
+  "sourceControl": {
+    "platform": "github",
+    "repoVisibility": "private",
+    "mfaEnforced": true,
+    "branchProtection": true,
+    "signedCommits": false,
+    "codeOwners": false
+  },
+  "dependencies": {
+    "packageManager": "npm",
+    "lockfilePresent": true,
+    "pinnedVersions": true,
+    "knownVulnerabilities": 0,
+    "sbomGenerated": true
+  },
+  "cicd": {
+    "platform": "github-actions",
+    "secretsScanning": true,
+    "pipelineAsCode": true,
+    "restrictedRunners": true
+  },
+  "buildArtifacts": {
+    "reproducibleBuilds": true,
+    "artifactsSigned": true
+  },
+  "registry": {
+    "type": "private",
+    "accessControl": "iam-role"
+  },
+  "deployment": {
+    "strategy": "gitops",
+    "manualApprovalRequired": true,
+    "rollbackSupported": true
+  },
+  "secretsExposure": {
+    "storageMethod": "vault",
+    "rotationPolicy": true,
+    "hardcodedSecretsFound": 0
+  },
+  "incidentResponse": {
+    "planDocumented": true,
+    "runbookExists": true,
+    "lastDrillDate": "2026-05-01"
+  }
+}

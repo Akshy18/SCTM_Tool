@@ -10,40 +10,45 @@ function App() {
   const [error, setError] = useState(null);
   const [fileName, setFileName] = useState("");
 
-  // ── File handling ───────────────────────────────────────
+  // ── Shared: POST a JSON object to the API ───────────────
 
-  const processFile = (file) => {
-    if (!file) return;
-    setFileName(file.name);
+  const postToAPI = (json, name) => {
+    setFileName(name);
     setError(null);
     setLoading(true);
     setReport(null);
     setFilter("All");
 
+    fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(json)
+    })
+      .then((res) =>
+        res.json().then((data) => {
+          if (!res.ok) throw new Error(data.error || `Server error ${res.status}`);
+          return data;
+        })
+      )
+      .then((data) => {
+        setReport(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message || "Failed to reach the API server. Is the backend running on port 4000?");
+        setLoading(false);
+      });
+  };
+
+  // ── File upload via FileReader ──────────────────────────
+
+  const processFile = (file) => {
+    if (!file) return;
     const reader = new FileReader();
     reader.onload = (event) => {
       try {
         const json = JSON.parse(event.target.result);
-
-        fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(json)
-        })
-          .then((res) =>
-            res.json().then((data) => {
-              if (!res.ok) throw new Error(data.error || `Server error ${res.status}`);
-              return data;
-            })
-          )
-          .then((data) => {
-            setReport(data);
-            setLoading(false);
-          })
-          .catch((err) => {
-            setError(err.message || "Failed to reach the API server. Is the backend running on port 4000?");
-            setLoading(false);
-          });
+        postToAPI(json, file.name);
       } catch {
         setError("Invalid JSON — could not parse the uploaded file.");
         setLoading(false);
@@ -53,6 +58,27 @@ function App() {
   };
 
   const handleFileInput = (e) => processFile(e.target.files[0]);
+
+  // ── Quick-test: load a sample profile by fetching it ───
+
+  const loadSampleProfile = (profileName) => {
+    setError(null);
+    setLoading(true);
+    setReport(null);
+    setFilter("All");
+    setFileName(profileName);
+
+    fetch(`/sample-profiles/${profileName}`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`Could not load ${profileName}`);
+        return res.json();
+      })
+      .then((json) => postToAPI(json, profileName))
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  };
 
   // ── Helpers ─────────────────────────────────────────────
 
@@ -114,7 +140,7 @@ function App() {
               <div className="upload-icon">
                 <FiUploadCloud size={52} />
               </div>
-              <h2>Upload Project Manifest</h2>
+              <h2>Upload Project</h2>
               <p className="upload-hint">
                 Select your JSON configuration file below to analyze the project.
               </p>
@@ -128,6 +154,32 @@ function App() {
                 onChange={handleFileInput}
                 className="file-input-hidden"
               />
+
+              {/* ── Quick-test sample buttons ──────────── */}
+              <div className="sample-divider">
+                <span>or try a sample profile</span>
+              </div>
+              <div className="sample-btns">
+                <button
+                  className="sample-btn sample-low"
+                  onClick={() => loadSampleProfile("low-risk-profile.json")}
+                >
+                  🟢 Low Risk
+                </button>
+                <button
+                  className="sample-btn sample-medium"
+                  onClick={() => loadSampleProfile("medium-risk-profile.json")}
+                >
+                  🟡 Medium Risk
+                </button>
+                <button
+                  className="sample-btn sample-high"
+                  onClick={() => loadSampleProfile("high-risk-profile.json")}
+                >
+                  🔴 High Risk
+                </button>
+              </div>
+
               {error && <p className="error-msg">{error}</p>}
             </div>
           </section>

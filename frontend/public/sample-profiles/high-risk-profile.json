@@ -1,0 +1,49 @@
+{
+  "projectName": "Yolo Startup MVP (High Risk)",
+  "nodeVersion": "14.17.0",
+  "license": "",
+  "sourceControl": {
+    "platform": "github",
+    "repoVisibility": "public",
+    "mfaEnforced": false,
+    "branchProtection": false,
+    "signedCommits": false,
+    "codeOwners": false
+  },
+  "dependencies": {
+    "packageManager": "npm",
+    "lockfilePresent": false,
+    "pinnedVersions": false,
+    "knownVulnerabilities": 42,
+    "sbomGenerated": false
+  },
+  "cicd": {
+    "platform": "github-actions",
+    "secretsScanning": false,
+    "pipelineAsCode": false,
+    "restrictedRunners": false
+  },
+  "buildArtifacts": {
+    "reproducibleBuilds": false,
+    "artifactsSigned": false
+  },
+  "registry": {
+    "type": "public",
+    "accessControl": "none"
+  },
+  "deployment": {
+    "strategy": "manual",
+    "manualApprovalRequired": false,
+    "rollbackSupported": false
+  },
+  "secretsExposure": {
+    "storageMethod": "hardcoded",
+    "rotationPolicy": false,
+    "hardcodedSecretsFound": 17
+  },
+  "incidentResponse": {
+    "planDocumented": false,
+    "runbookExists": false,
+    "lastDrillDate": null
+  }
+}

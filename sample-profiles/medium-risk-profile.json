@@ -1,0 +1,49 @@
+{
+  "projectName": "Nexus Platform (Medium Risk)",
+  "nodeVersion": "18.20.0",
+  "license": "Apache-2.0",
+  "sourceControl": {
+    "platform": "github",
+    "repoVisibility": "private",
+    "mfaEnforced": false,
+    "branchProtection": true,
+    "signedCommits": false,
+    "codeOwners": false
+  },
+  "dependencies": {
+    "packageManager": "npm",
+    "lockfilePresent": true,
+    "pinnedVersions": false,
+    "knownVulnerabilities": 0,
+    "sbomGenerated": false
+  },
+  "cicd": {
+    "platform": "github-actions",
+    "secretsScanning": false,
+    "pipelineAsCode": true,
+    "restrictedRunners": true
+  },
+  "buildArtifacts": {
+    "reproducibleBuilds": true,
+    "artifactsSigned": false
+  },
+  "registry": {
+    "type": "private",
+    "accessControl": "iam-role"
+  },
+  "deployment": {
+    "strategy": "manual",
+    "manualApprovalRequired": false,
+    "rollbackSupported": true
+  },
+  "secretsExposure": {
+    "storageMethod": "env-manager",
+    "rotationPolicy": false,
+    "hardcodedSecretsFound": 0
+  },
+  "incidentResponse": {
+    "planDocumented": true,
+    "runbookExists": false,
+    "lastDrillDate": null
+  }
+}
